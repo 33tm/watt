@@ -16,7 +16,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
+        include:
+        - platform: 'macos-latest'
+          args: '--target universal-apple-darwin'
+        - platform: 'ubuntu-20.04'
+          args: ''
+        - platform: 'windows-latest'
+          args: ''
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -52,3 +58,4 @@ jobs:
           releaseBody: "Use the corresponding installer bundled in assets to download the WATT desktop client.\n### Changes since last release:\n```\n- ${{ join(github.event.commits.*.message, '\n- ') }}\n```"
           releaseDraft: false
           prerelease: ${{ github.ref_name != 'main' }}  # Prerelease if workflow triggered on a branch commit
+          args: ${{ matrix.args }}
