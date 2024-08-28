@@ -5,6 +5,7 @@ on:
       - "client/**"
       - "shared/**"
       - "firebase.json" # Assume most `firebase.json` changes are hosting rewrites edits
+      - ".github/workflows/tauri-release-merge.yml"
     branches:
       - '**'
     tags-ignore:
